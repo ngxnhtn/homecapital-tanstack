@@ -58,7 +58,6 @@ function Listing() {
             <ListingFeatures listing={listing} />
             <ListingGallery images={listing.gallery} onOpenLightbox={openLightbox} />
           </div>
-
           <ListingSidebar listing={listing} />
         </div>
       </div>
