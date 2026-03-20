@@ -39,7 +39,7 @@ export function ListingCard({ listing, featured }: { listing: Feature; featured?
           loading="lazy"
         />
         <div
-          className={`absolute top-6 left-6 bg-white px-4 py-2 text-xs font-bold uppercase tracking-widest text-stone-900 shadow-lg ${listing.listingStatus == "closed" ? "bg-red-500" : ""}`}
+          className={`absolute top-6 left-6 bg-white px-4 py-2 text-xs font-bold uppercase tracking-widest shadow-gold-500 text-stone-900 shadow-lg/30 ${listing.listingStatus == "closed" ? "bg-red-500" : ""}`}
         >
           {status}
         </div>
@@ -55,7 +55,7 @@ export function ListingCard({ listing, featured }: { listing: Feature; featured?
           </span>
         </div>
 
-        <Link to="/listing/$slug" params={{ slug: listing.id }} className="block mb-3">
+        <Link to="/listing/$slug" params={{ slug: listing.slug! }} className="block mb-3">
           <h3
             className={`font-serif text-stone-900 group-hover:text-gold-700 transition-colors leading-tight ${featured ? "text-3xl" : "text-xl"}`}
           >
@@ -68,8 +68,9 @@ export function ListingCard({ listing, featured }: { listing: Feature; featured?
           <span className="truncate">{listing.location?.address}</span>
         </div>
 
-        <div className="text-2xl font-serif text-stone-900 mb-6 ">
+        <div className="text-2xl font-serif text-stone-900 mb-6 flex justify-end lining-nums">
           {listing.value?.currency} {listing.value?.priceAmount!.toLocaleString()}
+          {listing.listingStatus == "rent" ? t("month") : ""}
         </div>
 
         <div className="mt-auto">
@@ -77,12 +78,14 @@ export function ListingCard({ listing, featured }: { listing: Feature; featured?
             <div className="flex items-center justify-between px-2">
               <div className="flex items-center gap-2" title={t("rooms")}>
                 <i className="text-gold-600 shrink-0 fa-solid fa-house-chimney" />
-                <span className="font-serif text-stone-900">{listing.specs?.rooms}</span>
+                <span className="font-serif text-stone-900 lining-nums">
+                  {listing.specs?.rooms} {t("rooms")}
+                </span>
               </div>
               <div className="w-px h-6 bg-stone-200"></div>
               <div className="flex items-center gap-2" title={t("livingArea")}>
                 <i className="text-gold-600 shrink-0  fa-regular fa-square" />
-                <span className="font-serif text-stone-900 whitespace-nowrap">
+                <span className="font-serif text-stone-900 whitespace-nowrap lining-nums">
                   {listing.specs?.area} m²
                 </span>
               </div>

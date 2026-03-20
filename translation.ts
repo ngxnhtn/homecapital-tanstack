@@ -22,8 +22,8 @@ const translation = {
     vi: "Bảo lưu toàn quyền.",
   },
   office: {
-    en: "Office",
-    vi: "Văn phòng",
+    en: "Our Office",
+    vi: "Văn phòng chúng tôi",
   },
   viewCollection: {
     en: "View Collection",
@@ -86,8 +86,96 @@ const translation = {
     en: "Closed",
   },
   rooms: {
-    vi: "Số phòng",
-    en: "Rooms",
+    vi: "phòng",
+    en: "rooms",
+  },
+  month: {
+    vi: "/tháng",
+    en: "/month",
+  },
+  collectionTitle: {
+    en: "The Collection",
+    vi: "Bộ sưu tập",
+  },
+  collectionSubtitle: {
+    en: "Explore our exclusive portfolio of historic and luxury properties across Budapest.",
+    vi: "Khám phá danh mục đầu tư độc quyền của chúng tôi về các bất động sản lịch sử và xa xỉ trên khắp Budapest.",
+  },
+  all: {
+    vi: "Tất cả",
+    en: "All",
+  },
+  allDistricts: {
+    vi: "Tất cả quận",
+    en: "All districts",
+  },
+  notFound: {
+    vi: "Không tìm thấy",
+    en: "Not Found",
+  },
+  openInMaps: {
+    vi: "Xem trong Maps",
+    en: "Open in Maps",
+  },
+  residenceFeatures: {
+    vi: "Tiện ích",
+    en: "Features",
+  },
+  gallery: {
+    vi: "Thư viện",
+    en: "Gallery",
+  },
+  contactTitle: {
+    vi: "Liên Hệ Chúng Tôi",
+    en: "Contact Us",
+  },
+  contactSubtitle: {
+    vi: "Chúng tôi mời bạn liên hệ với xưởng của chúng tôi để thảo luận về nguyện vọng bất động sản của bạn.",
+    en: "We invite you to reach out to our atelier to discuss your real estate aspirations.",
+  },
+  contactInfo: {
+    vi: "Thông tin liên lạc",
+    en: "Contact Information",
+  },
+  visitUs: {
+    vi: "Ghé thăm chúng tôi",
+    en: "Visit Us",
+  },
+  callUs: {
+    vi: "Gọi cho chúng tôi",
+    en: "Call Us",
+  },
+  emailUs: {
+    vi: "Email cho chúng tôi",
+    en: "Email Us",
+  },
+  openingHours: {
+    vi: "Giờ mở cửa",
+    en: "Opening Hours",
+  },
+  sendMessage: {
+    vi: "Gửi tin nhắn cho chúng tôi",
+    en: "Send Us a Message",
+  },
+  contactName: {
+    vi: "Tên bạn",
+    en: "Your name",
+  },
+  emailAddress: {
+    vi: "Địa chỉ Email",
+    en: "Email Address",
+  },
+  inquiryType: {
+    vi: "Loại yêu cầu",
+    en: "Inquiry Type",
+  },
+  inquiryMessage: {
+    vi: "Tin nhắn",
+    en: "Your Message",
+  },
+  submit: {
+    vi: "Gửi",
+    en: "Submit",
   },
 } satisfies TranslationText;
 

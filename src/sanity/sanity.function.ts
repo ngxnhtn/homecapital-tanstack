@@ -1,7 +1,14 @@
 import { createServerFn } from "@tanstack/react-start";
 import { loadQuery } from "./sanityClient";
 import { urlForImage } from "./utils";
-import type { Landing, Agency, About, Property, Location } from "../../sanity.types";
+import type {
+  Landing,
+  Agency,
+  About,
+  Property,
+  Location,
+  InternationalizedArrayDescription,
+} from "../../sanity.types";
 
 export const getMetadata = createServerFn().handler(async () => {
   const { data } = await loadQuery<Agency>(`*[_type=="agency"][0]`);
@@ -14,6 +21,7 @@ export const getMetadata = createServerFn().handler(async () => {
     location: data.location,
     contacts: data.contactDetails,
     bio: data.bio,
+    hour: data.openingHours,
   };
 });
 
@@ -113,4 +121,54 @@ export const getLatest = createServerFn()
     );
     const result = initial.data.map(deserialProperty);
     return result;
+  });
+
+export const getAll = createServerFn().handler(async () => {
+  const { data } = await loadQuery<Property[]>(
+    `*[_type=="property" && listingStatus != "closed"]{_id, featureImage, location, slug, specs, propertyValue, title, listingStatus}`,
+  );
+  const result = data.map(deserialProperty);
+  return result;
+});
+
+export type DetailListingType = Feature & {
+  gallery: string[];
+  features?:
+    | {
+        en?: string | undefined;
+        vi?: string | undefined;
+        _type: "amenity";
+        _key: string;
+      }[]
+    | undefined;
+  description: InternationalizedArrayDescription | undefined;
+};
+
+export const getEntry = createServerFn()
+  .inputValidator((data: string) => data)
+  .handler(async ({ data }) => {
+    const { data: p } = await loadQuery<Property>(
+      `*[_type=="property" && slug.current == "${data}" && listingStatus != "closed"][0] `,
+    );
+
+    const processGallery = p.gallery
+      ? p.gallery.map((i) => {
+          if (i.asset) {
+            return urlForImage(i.asset).url();
+          }
+        })
+      : [];
+    return {
+      title: p.title,
+      id: p._id,
+      slug: p.slug?.current,
+      location: p.location,
+      specs: p.specs,
+      value: p.propertyValue,
+      photo: p.featureImage?.asset ? urlForImage(p.featureImage.asset).url() : "",
+      listingStatus: p.listingStatus,
+      gallery: processGallery.filter((i) => typeof i == "string"),
+      description: p.description,
+      features: p.amenities,
+    };
   });

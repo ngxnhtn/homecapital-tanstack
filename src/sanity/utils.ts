@@ -51,7 +51,29 @@ export const resolveLanguage = (
   }
 };
 
-export const getDistrictFromZip = (zip?: number) => {
+export type DistrictRoman =
+  | "I"
+  | "II"
+  | "III"
+  | "IV"
+  | "V"
+  | "VI"
+  | "VII"
+  | "VIII"
+  | "IX"
+  | "X"
+  | "XI"
+  | "XII"
+  | "XIII"
+  | "XIV"
+  | "XV"
+  | "XVI"
+  | "XVII"
+  | "XVIII"
+  | "XIX"
+  | "XX";
+
+export const getDistrictFromZip = (zip?: number): string => {
   if (!zip) {
     return "";
   } else {
