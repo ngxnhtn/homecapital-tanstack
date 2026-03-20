@@ -5,7 +5,7 @@ import { ListingFeatures } from "../components/ListingFeatures";
 import { ListingGallery } from "../components/ListingGallery";
 import { useState } from "react";
 import { getEntry } from "../sanity/sanity.function";
-// import { ListingSidebar } from "../components/ListingSidebar";
+import { ListingSidebar } from "../components/ListingSidebar";
 
 export const Route = createFileRoute("/listing/$slug")({
   loader: async ({ params }) => {
@@ -59,7 +59,7 @@ function Listing() {
             <ListingGallery images={listing.gallery} onOpenLightbox={openLightbox} />
           </div>
 
-          {/* <ListingSidebar listing={listing} /> */}
+          <ListingSidebar listing={listing} />
         </div>
       </div>
     </div>
