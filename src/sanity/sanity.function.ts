@@ -118,7 +118,7 @@ export const getLatest = createServerFn()
   .inputValidator((data: string) => data)
   .handler(async ({ data }) => {
     const initial = await loadQuery<Property[]>(
-      `*[_type=="property" && !featured && listingStatus == "${data}"]{_id, featureImage, location, slug, specs, propertyValue, title, listingStatus} | order(_updatedAt desc)[0..5] `,
+      `*[_type=="property" && listingStatus == "${data}"]{_id, featureImage, location, slug, specs, propertyValue, title, listingStatus} | order(_updatedAt desc)[0..5] `,
     );
     const result = initial.data.map(deserialProperty);
     return result;
