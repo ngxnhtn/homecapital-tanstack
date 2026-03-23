@@ -2,6 +2,8 @@
 
 Một web app đơn giản cho công ty môi giới bất động sản.
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/ngxnhtn/homecapital-tanstack)
+
 ## Tính năng
 
 - SSR
@@ -11,6 +13,6 @@ Một web app đơn giản cho công ty môi giới bất động sản.
 ## Tech Stack
 
 - Server: Cloudflare Worker
-- Frontend: Tanstack + React
+- Frontend: Tanstack Start (hate Next.js)
 - CMS: Sanity CMS
-- Styling: motion + tailwindcss
+- Styling: Motion + TailwindCSS
