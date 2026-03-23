@@ -13,12 +13,12 @@ export default function Header({ siteName, logo }: { siteName: string; logo: str
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="p-2 text-gold-600 group-hover:text-gold-700 transition-colors">
+              <div className="p-2 w-auto">
                 {/* <i className="fa-solid fa-crown text-3xl"></i> */}
-                <img src={logo} className="h-10 w-auto" alt={siteName} />
+                <img src={logo} className="h-10 w-10" alt={siteName} />
               </div>
-              <div className="flex flex-col">
-                <span className="font-serif font-bold text-2xl tracking-wide text-stone-900 uppercase leading-none">
+              <div className="flex flex-col w-fit">
+                <span className="w-50 md:w-auto font-serif font-bold text-2xl tracking-wide text-stone-900 uppercase leading-none">
                   {siteName}
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gold-600 font-medium">
