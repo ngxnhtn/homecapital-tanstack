@@ -13,7 +13,7 @@
     "format": "prettier --check .",
     "check": "prettier --write . && eslint --fix",
     "preview": "vite preview",
-    "deploy": "npm run build && wrangler deploy",
+    "deploy": "wrangler deploy",
     "cf-typegen": "wrangler types",
     "sanity-pregen": "cd ./sanity && pnpm run typegen",
     "sanity-typegen": "sanity typegen generate",
