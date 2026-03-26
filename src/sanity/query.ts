@@ -70,7 +70,7 @@ export const aboutQuery = q.star
 
 export const featuredQuery = q.star
   .filterByType("property")
-  .filterBy("featured != null")
+  .filterRaw(`featured == true`)
   .filterBy('listingStatus != "closed"')
   .project(propertyCardFragments);
 
