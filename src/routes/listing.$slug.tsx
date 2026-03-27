@@ -1,68 +1,40 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Lightbox } from '../components/Lightbox'
-import { ListingHero } from '../components/ListingHero'
-import { ListingFeatures } from '../components/ListingFeatures'
-import { ListingGallery } from '../components/ListingGallery'
-import { memo, useCallback, useMemo, useState } from 'react'
+import { createFileRoute } from "@tanstack/react-router";
+import { Lightbox } from "../components/Lightbox";
+import { ListingHero } from "../components/ListingHero";
+import { ListingFeatures } from "../components/ListingFeatures";
+import { ListingGallery } from "../components/ListingGallery";
+import { memo, useCallback, useMemo, useState } from "react";
 
-import { ListingSidebar } from '../components/ListingSidebar'
-import { entryQueryOptions } from '../sanity/sanity.function'
+import { ListingSidebar } from "../components/ListingSidebar";
+import { entryQueryOptions } from "../sanity/sanity.function";
+import type { InferResultType } from "groqd";
+import type { entryQuery } from "../sanity/query";
 
-export const Route = createFileRoute('/listing/$slug')({
+export const Route = createFileRoute("/listing/$slug")({
   loader: async ({ params, context }) => {
-    const listing = await context.queryClient.ensureQueryData(
-      entryQueryOptions(params.slug),
-    )
+    const listing = await context.queryClient.ensureQueryData(entryQueryOptions(params.slug));
     return {
       listing,
-    }
+    };
   },
   component: Listing,
-})
+});
 
 function Listing() {
-  const { listing } = Route.useLoaderData()
-
-  const listingGallery = listing?.gallery
-  const hasListing = listing != null
-  const featureImage = listing?.featureImage ?? ''
-
-  const gallery = useMemo(() => {
-    return listingGallery
-      ? listingGallery.map(({ url }) => url).filter((u) => u !== '')
-      : []
-  }, [listingGallery])
-
-  const images = useMemo(() => {
-    return hasListing ? [featureImage, ...gallery] : []
-  }, [hasListing, featureImage, gallery])
-
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
-  const [lightboxIndex, setLightboxIndex] = useState(0)
-
-  const openLightbox = useCallback((index: number) => {
-    setLightboxIndex(index)
-    setIsLightboxOpen(true)
-  }, [])
-
-  const closeLightbox = useCallback(() => {
-    setIsLightboxOpen(false)
-  }, [])
-
-  const nextLightboxImage = useCallback(() => {
-    setLightboxIndex((prev) =>
-      images.length ? (prev + 1) % images.length : prev,
-    )
-  }, [images.length])
-
-  const prevLightboxImage = useCallback(() => {
-    setLightboxIndex((prev) =>
-      images.length ? (prev - 1 + images.length) % images.length : prev,
-    )
-  }, [images.length])
+  const { listing } = Route.useLoaderData();
+  const {
+    isLightboxOpen,
+    lightboxIndex,
+    openLightbox,
+    closeLightbox,
+    nextLightboxImage,
+    prevLightboxImage,
+    images,
+    gallery,
+  } = useLightbox(listing);
 
   if (!listing) {
-    return <h1>Not Found</h1>
+    return <h1>Not Found</h1>;
   }
 
   return (
@@ -77,13 +49,57 @@ function Listing() {
         title={listing.title!}
       />
 
-      <ListingContent
-        listing={listing}
-        gallery={gallery}
-        onOpenLightbox={openLightbox}
-      />
+      <ListingContent listing={listing} gallery={gallery} onOpenLightbox={openLightbox} />
     </div>
-  )
+  );
+}
+
+/* Components
+ */
+
+function useLightbox(listing: InferResultType<ReturnType<typeof entryQuery>>) {
+  const listingGallery = listing?.gallery;
+  const hasListing = listing != null;
+  const featureImage = listing?.featureImage ?? "";
+
+  const gallery = useMemo(() => {
+    return listingGallery ? listingGallery.map(({ url }) => url).filter((u) => u !== "") : [];
+  }, [listingGallery]);
+
+  const images = useMemo(() => {
+    return hasListing ? [featureImage, ...gallery] : [];
+  }, [hasListing, featureImage, gallery]);
+
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const openLightbox = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setIsLightboxOpen(true);
+  }, []);
+
+  const closeLightbox = useCallback(() => {
+    setIsLightboxOpen(false);
+  }, []);
+
+  const nextLightboxImage = useCallback(() => {
+    setLightboxIndex((prev) => (images.length ? (prev + 1) % images.length : prev));
+  }, [images.length]);
+
+  const prevLightboxImage = useCallback(() => {
+    setLightboxIndex((prev) => (images.length ? (prev - 1 + images.length) % images.length : prev));
+  }, [images.length]);
+
+  return {
+    isLightboxOpen,
+    lightboxIndex,
+    openLightbox,
+    closeLightbox,
+    nextLightboxImage,
+    prevLightboxImage,
+    images,
+    gallery,
+  };
 }
 
 const ListingContent = memo(function ListingContent({
@@ -91,9 +107,9 @@ const ListingContent = memo(function ListingContent({
   gallery,
   onOpenLightbox,
 }: {
-  listing: NonNullable<ReturnType<typeof Route.useLoaderData>['listing']>
-  gallery: string[]
-  onOpenLightbox: (index: number) => void
+  listing: NonNullable<ReturnType<typeof Route.useLoaderData>["listing"]>;
+  gallery: string[];
+  onOpenLightbox: (index: number) => void;
 }) {
   return (
     <>
@@ -109,5 +125,5 @@ const ListingContent = memo(function ListingContent({
         </div>
       </div>
     </>
-  )
-})
+  );
+});

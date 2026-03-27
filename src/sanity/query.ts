@@ -1,4 +1,4 @@
-import type { Location } from "../../sanity.types";
+import type { About, Location } from "../../sanity.types";
 import { q } from "./client";
 import { urlForImage } from "./utils";
 
