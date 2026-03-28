@@ -134,7 +134,7 @@ function TeamMember({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: 1 * 0.2, duration: 0.6 }}
-      className="flex flex-col md:flex-row bg-stone-50 p-8 text-center hover:shadow-xl transition-shadow duration-500 border border-stone-100 justify-between px-10 md:gap-20 md:mx-20 items-center"
+      className="flex flex-col lg:flex-row bg-stone-50 p-8 text-center hover:shadow-xl transition-shadow duration-500 border border-stone-100 justify-between px-10 lg:gap-20 lg:mx-20 items-center"
     >
       <div className="min-w-fit">
         <div className="w-48 h-48 mx-auto mb-8 rounded-full overflow-hidden border-4 border-white shadow-lg">
