@@ -51,7 +51,7 @@ export function ListingHero({ listing, onOpenLightbox }: ListingHeroProps) {
               Budapest
             </span>
           </div>
-          <h1 className="mb-4 font-serif text-4xl leading-tight font-medium md:text-6xl">
+          <h1 className="mb-4 font-serif text-4xl leading-tight font-medium lg:text-6xl">
             {listing!.title}
           </h1>
           <div className="mt-2 flex items-center text-lg font-light text-stone-300">
@@ -70,7 +70,7 @@ export function ListingHero({ listing, onOpenLightbox }: ListingHeroProps) {
             {t('openInMaps')}
           </a>
           <div className="min-w-75 border border-white/20 bg-white/10 p-8 text-white backdrop-blur-md">
-            <div className="mb-1 font-serif text-4xl">
+            <div className="mb-1 font-serif text-3xl">
               {listing?.propertyValue?.currency}{' '}
               {listing?.propertyValue?.priceAmount!.toLocaleString()}
             </div>
