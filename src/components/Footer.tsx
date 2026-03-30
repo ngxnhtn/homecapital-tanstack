@@ -1,65 +1,80 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from '@tanstack/react-router'
+
+import type { agencyQuery } from '../sanity/query'
+
 // import { Crown } from "lucide-react";
-import { useLocales } from "../hooks/locales";
-import { resolveLanguage } from "../sanity/utils";
+import { useLocales } from '../hooks/locales'
+import { resolveLanguage } from '../sanity/utils'
 
-import { agencyQuery } from "../sanity/query";
-
-type PropsType = ReturnType<typeof agencyQuery.parse>;
+type PropsType = ReturnType<typeof agencyQuery.parse>
 
 export default function Footer({ agency }: { agency: PropsType }) {
-  const { t, lang } = useLocales();
+  const { t, lang } = useLocales()
 
   return (
-    <footer className="bg-stone-900 text-stone-400 py-16 mt-20 border-t-4 border-gold-600">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+    <footer className="mt-20 border-t-4 border-gold-600 bg-stone-900 py-16 text-stone-400">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-12 text-center md:grid-cols-3 md:text-left">
           <div className="flex flex-col items-center md:items-start">
-            <div className="flex items-center gap-2 mb-6 text-gold-100">
+            <div className="mb-6 flex items-center gap-2 text-gold-100">
               {/* <Crown size={24} /> */}
               <i className="fa-solid fa-crown"></i>
-              <span className="font-serif font-bold text-xl tracking-wide uppercase">
-                {agency.name || "Real Estate"}
+              <span className="font-serif text-xl font-bold tracking-wide uppercase">
+                {agency.name || 'Real Estate'}
               </span>
             </div>
-            <p className="text-sm leading-relaxed max-w-xs font-serif italic text-stone-500">
-              {resolveLanguage(agency.bio!, lang) || "Description"}
+            <p className="max-w-xs font-serif text-sm leading-relaxed text-stone-500 italic">
+              {resolveLanguage(agency.bio!, lang) || 'Description'}
             </p>
           </div>
           <div>
-            <h3 className="text-gold-200 font-serif text-lg mb-6 italic">{t("navigation")}</h3>
+            <h3 className="mb-6 font-serif text-lg text-gold-200 italic">
+              {t('navigation')}
+            </h3>
             <ul className="space-y-3 text-sm tracking-wide uppercase">
               <li>
-                <Link to="/collection" className="hover:text-gold-400 transition-colors">
-                  {t("collection")}
+                <Link
+                  to="/collection"
+                  className="transition-colors hover:text-gold-400"
+                >
+                  {t('collection')}
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="hover:text-gold-400 transition-colors">
-                  {t("about-us")}
+                <Link
+                  to="/about"
+                  className="transition-colors hover:text-gold-400"
+                >
+                  {t('about-us')}
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-gold-400 transition-colors">
-                  {t("contact")}
+                <Link
+                  to="/contact"
+                  className="transition-colors hover:text-gold-400"
+                >
+                  {t('contact')}
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <h3 className="text-gold-200 font-serif text-lg mb-6 italic">{t("office")}</h3>
+            <h3 className="mb-6 font-serif text-lg text-gold-200 italic">
+              {t('office')}
+            </h3>
             <ul className="space-y-3 text-sm font-light">
-              <li>{agency.location?.address || "Somewhere"}</li>
-              <li>{agency.location?.postalCode || "1000"} Budapest, Hungary</li>
-              <li>{agency.contactDetails?.email || "example@gmail.com"}</li>
-              <li>{agency.contactDetails?.phone || "+366969696969"}</li>
+              <li>{agency.location?.address || 'Somewhere'}</li>
+              <li>{agency.location?.postalCode || '1000'} Budapest, Hungary</li>
+              <li>{agency.contactDetails?.email || 'example@gmail.com'}</li>
+              <li>{agency.contactDetails?.phone || '+366969696969'}</li>
             </ul>
           </div>
         </div>
-        <div className="border-t border-stone-800 mt-16 pt-8 text-[10px] uppercase tracking-widest text-center text-stone-600">
-          © {new Date().getFullYear()} {agency.name || "Real Estate"}. {t("rights")}
+        <div className="mt-16 border-t border-stone-800 pt-8 text-center text-[10px] tracking-widest text-stone-600 uppercase">
+          © {new Date().getFullYear()} {agency.name || 'Real Estate'}.{' '}
+          {t('rights')}
         </div>
       </div>
     </footer>
-  );
+  )
 }
