@@ -64,12 +64,12 @@ export function Lightbox({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-100 bg-black/95 flex items-center justify-center"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/95"
         >
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-6 right-6 z-50 text-white/70 hover:text-white p-2 transition-colors"
+            className="absolute top-6 right-6 z-50 p-2 text-white/70 transition-colors hover:text-white"
           >
             <i className="fa-solid fa-x"></i>
           </button>
@@ -80,14 +80,14 @@ export function Lightbox({
               e.stopPropagation()
               onPrev()
             }}
-            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 text-white/50 hover:text-white p-4 transition-colors"
+            className="absolute top-1/2 left-4 z-50 -translate-y-1/2 p-4 text-white/50 transition-colors hover:text-white md:left-8"
           >
             <i className="fa-solid fa-chevron-left"></i>
           </button>
 
           <button
             type="button"
-            className="w-full h-full p-4 md:p-12 flex items-center justify-center bg-transparent border-0"
+            className="flex h-full w-full items-center justify-center border-0 bg-transparent p-4 md:p-12"
             onClick={onClose}
           >
             <motion.img
@@ -98,7 +98,7 @@ export function Lightbox({
               transition={{ duration: 0.3 }}
               src={images[currentIndex]}
               alt={`${title} - ${currentIndex + 1} of ${images.length}`}
-              className="max-w-full max-h-full object-contain"
+              className="max-h-full max-w-full object-contain"
               onClick={(e) => e.stopPropagation()}
             />
           </button>
@@ -109,12 +109,12 @@ export function Lightbox({
               e.stopPropagation()
               onNext()
             }}
-            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 text-white/50 hover:text-white p-4 transition-colors"
+            className="absolute top-1/2 right-4 z-50 -translate-y-1/2 p-4 text-white/50 transition-colors hover:text-white md:right-8"
           >
             <i className="fa-solid fa-chevron-right"></i>
           </button>
 
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 font-mono text-sm tracking-widest">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-sm tracking-widest text-white/70">
             {currentIndex + 1} / {images.length}
           </div>
         </motion.div>

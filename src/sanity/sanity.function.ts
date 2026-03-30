@@ -1,7 +1,7 @@
-import { createServerFn } from "@tanstack/react-start";
-import { queryOptions } from "@tanstack/react-query";
+import { queryOptions } from '@tanstack/react-query'
+import { createServerFn } from '@tanstack/react-start'
 
-import { runQuery } from "./client";
+import { runQuery } from './client'
 import {
   aboutQuery,
   agencyQuery,
@@ -10,104 +10,104 @@ import {
   featuredQuery,
   landingQuery,
   latestQuery,
-} from "./query";
+} from './query'
 
 // AGENCY
 
 const getAgency = createServerFn().handler(async () => {
-  const agency = await runQuery(agencyQuery);
-  return agency;
-});
+  const agency = await runQuery(agencyQuery)
+  return agency
+})
 
 export const agencyQueryOptions = () =>
   queryOptions({
-    queryKey: ["agency"],
+    queryKey: ['agency'],
     queryFn: () => getAgency(),
     staleTime: 5 * 60 * 1000,
-  });
+  })
 
 // LANDING
 
 const getLanding = createServerFn().handler(async () => {
-  console.log(`${new Date().toISOString()} -> Begin fetch: Landing`);
-  const landing = await runQuery(landingQuery);
-  return landing;
-});
+  console.log(`${new Date().toISOString()} -> Begin fetch: Landing`)
+  const landing = await runQuery(landingQuery)
+  return landing
+})
 
 export const landingQueryOptions = () =>
   queryOptions({
-    queryKey: ["landing"],
+    queryKey: ['landing'],
     queryFn: () => getLanding(),
     staleTime: 5 * 60 * 1000,
-  });
+  })
 
 // About
 
 const getAbout = createServerFn().handler(async () => {
-  console.log(`${new Date().toISOString()} -> Begin fetch: About`);
-  const about = await runQuery(aboutQuery);
-  return about;
-});
+  console.log(`${new Date().toISOString()} -> Begin fetch: About`)
+  const about = await runQuery(aboutQuery)
+  return about
+})
 
 export const aboutQueryOptions = () =>
   queryOptions({
-    queryKey: ["about"],
+    queryKey: ['about'],
     queryFn: () => getAbout(),
     staleTime: 5 * 60 * 1000,
-  });
+  })
 
 // Featured
 
 const getFeatured = createServerFn().handler(async () => {
-  const featured = await runQuery(featuredQuery);
-  return featured;
-});
+  const featured = await runQuery(featuredQuery)
+  return featured
+})
 
 export const featuredQueryOptions = () =>
   queryOptions({
-    queryKey: ["properties", "featured"],
+    queryKey: ['properties', 'featured'],
     queryFn: () => getFeatured(),
-  });
+  })
 
 // Latest
 
 const getLatest = createServerFn()
-  .inputValidator((data: "rent" | "sale") => data)
+  .inputValidator((data: 'rent' | 'sale') => data)
   .handler(async ({ data }) => {
-    const latest = await runQuery(latestQuery(data));
-    return latest;
-  });
+    const latest = await runQuery(latestQuery(data))
+    return latest
+  })
 
-export const latestQueryOptions = (status: "sale" | "rent") =>
+export const latestQueryOptions = (status: 'sale' | 'rent') =>
   queryOptions({
-    queryKey: ["properties", status],
+    queryKey: ['properties', status],
     queryFn: () => getLatest({ data: status }),
-  });
+  })
 
 // All
 
 const getAll = createServerFn().handler(async () => {
-  const all = await runQuery(allQuery);
-  return all;
-});
+  const all = await runQuery(allQuery)
+  return all
+})
 
 export const allQueryOptions = () =>
   queryOptions({
-    queryKey: ["properties", "all"],
+    queryKey: ['properties', 'all'],
     queryFn: () => getAll(),
-  });
+  })
 
 // Entry
 
 const getEntry = createServerFn()
   .inputValidator((data: string) => data)
   .handler(async ({ data }) => {
-    const entry = await runQuery(entryQuery(data));
-    return entry;
-  });
+    const entry = await runQuery(entryQuery(data))
+    return entry
+  })
 
 export const entryQueryOptions = (slug: string) =>
   queryOptions({
-    queryKey: ["property", slug],
+    queryKey: ['property', slug],
     queryFn: () => getEntry({ data: slug }),
-  });
+  })

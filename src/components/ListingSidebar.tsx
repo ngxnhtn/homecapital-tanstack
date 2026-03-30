@@ -1,60 +1,69 @@
-import { Link } from "@tanstack/react-router";
-import { useLocales } from "../hooks/locales";
-import type { InferResultType } from "groqd";
-import type { entryQuery } from "../sanity/query";
+import type { InferResultType } from 'groqd'
+
+import { Link } from '@tanstack/react-router'
+
+import type { entryQuery } from '../sanity/query'
+
+import { useLocales } from '../hooks/locales'
 
 interface ListingSidebarProps {
-  listing: InferResultType<ReturnType<typeof entryQuery>>;
+  listing: InferResultType<ReturnType<typeof entryQuery>>
 }
 
 export function ListingSidebar({ listing }: ListingSidebarProps) {
-  const { t } = useLocales();
+  const { t } = useLocales()
 
   return (
-    <div className="lg:col-span-1 space-y-8">
+    <div className="space-y-8 lg:col-span-1">
       {/* Price Card (Mobile only) */}
-      <div className="bg-white shadow-xl p-8 border-t-4 border-gold-600 md:hidden flex flex-col gap-4">
+      <div className="flex flex-col gap-4 border-t-4 border-gold-600 bg-white p-8 shadow-xl md:hidden">
         <div>
-          <div className="text-3xl font-serif text-stone-900 mb-1">
-            {listing!.propertyValue?.currency}{" "}
+          <div className="mb-1 font-serif text-3xl text-stone-900">
+            {listing!.propertyValue?.currency}{' '}
             {listing?.propertyValue?.priceAmount!.toLocaleString()}
-            {listing!.listingStatus == "rent" ? t("month") : ""}
+            {listing!.listingStatus == 'rent' ? t('month') : ''}
           </div>
-          <div className="text-xs text-stone-400 uppercase tracking-widest">Asking Price</div>
+          <div className="text-xs tracking-widest text-stone-400 uppercase">
+            Asking Price
+          </div>
         </div>
         <a
           href={listing!.location!.gmaps!}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-gold-600 hover:text-gold-700 transition-colors border border-gold-200 hover:border-gold-300 rounded-full px-4 py-2 w-full bg-gold-50"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-gold-200 bg-gold-50 px-4 py-2 text-xs tracking-widest text-gold-600 uppercase transition-colors hover:border-gold-300 hover:text-gold-700"
         >
           <i className="fa-solid fa-arrow-up-right-from-square"></i>
-          {t("openInMaps")}
+          {t('openInMaps')}
         </a>
       </div>
 
       {/* Agent Card */}
-      <div className="bg-stone-900 text-white shadow-2xl p-8 sticky top-24">
-        <div className="flex items-center gap-2 mb-8 text-gold-400">
+      <div className="sticky top-24 bg-stone-900 p-8 text-white shadow-2xl">
+        <div className="mb-8 flex items-center gap-2 text-gold-400">
           <i className="fa-solid fa-crown"></i>
-          <span className="text-xs uppercase tracking-[0.2em] font-bold">View the property</span>
+          <span className="text-xs font-bold tracking-[0.2em] uppercase">
+            View the property
+          </span>
         </div>
 
-        <div className="flex items-center gap-6 mb-8">
+        <div className="mb-8 flex items-center gap-6">
           <img
             src={listing!.featureImage}
-            className="w-20 h-20 rounded-full object-cover border-2 border-gold-500 p-1"
+            className="h-20 w-20 rounded-full border-2 border-gold-500 object-cover p-1"
           />
           <div>
-            <div className="font-serif text-xl mb-1">Agent</div>
-            <div className="text-stone-400 text-xs uppercase tracking-widest">Senior Partner</div>
+            <div className="mb-1 font-serif text-xl">Agent</div>
+            <div className="text-xs tracking-widest text-stone-400 uppercase">
+              Senior Partner
+            </div>
           </div>
         </div>
 
-        <div className="space-y-4 mb-8">
+        <div className="mb-8 space-y-4">
           <Link
             to="/contact"
-            className="block w-full py-4 px-6 bg-gold-600 hover:bg-gold-700 text-white text-center font-medium transition-colors uppercase tracking-widest text-xs"
+            className="block w-full bg-gold-600 px-6 py-4 text-center text-xs font-medium tracking-widest text-white uppercase transition-colors hover:bg-gold-700"
           >
             Contact
           </Link>
@@ -96,5 +105,5 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
         </div> */}
       </div>
     </div>
-  );
+  )
 }
