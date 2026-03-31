@@ -70,7 +70,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="lining-nums">
         <div className="min-h-screen bg-stone-50 font-sans text-stone-900 selection:bg-gold-200 selection:text-stone-900">
           <Header siteName={agency.name!} logo={agency.logo!} />
           {children}
