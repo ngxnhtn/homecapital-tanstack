@@ -18,14 +18,16 @@ export const Route = createFileRoute('/collection')({
   component: Collection,
 })
 
+type TStatus = 'all' | 'sale' | 'rent'
+type TSort = 'new' | '-new' | 'cheap' | '-cheap'
+
 function Collection() {
   const { data: all } = useSuspenseQuery(allQueryOptions())
   const { t } = useLocales()
 
-  const [statusFilter, setStatusFilter] = useState<'all' | 'sale' | 'rent'>(
-    'all',
-  )
+  const [statusFilter, setStatusFilter] = useState<TStatus>('all')
   const [districtFilter, setDistrictFilter] = useState<string>('all')
+  const [sort, setSort] = useState<TSort>('new')
 
   const availableDistricts = useMemo(() => {
     const filtered = all.filter(
@@ -75,13 +77,30 @@ function Collection() {
     })
   }, [statusFilter, districtFilter])
 
+  const sortedListings = useMemo(() => {
+    switch (sort) {
+      case 'new':
+        return filteredListings.sort((a, b) => a.updatedAt - b.updatedAt)
+      case '-new':
+        return filteredListings.sort((a, b) => b.updatedAt - a.updatedAt)
+      case 'cheap':
+        return filteredListings.sort(
+          (a, b) => a.propertyValue.priceAmount - b.propertyValue.priceAmount,
+        )
+      case '-cheap':
+        return filteredListings.sort(
+          (a, b) => b.propertyValue.priceAmount - a.propertyValue.priceAmount,
+        )
+    }
+  }, [sort, filteredListings])
+
   return (
     <div className="min-h-screen bg-stone-50 pt-24 pb-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
           <Title />
 
-          {/* Filters */}
+          {/* Status Filters */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -115,6 +134,7 @@ function Collection() {
               )}
             </div>
 
+            {/* District Filter */}
             <div className="relative">
               <select
                 value={districtFilter}
@@ -138,6 +158,30 @@ function Collection() {
                 </svg>
               </div>
             </div>
+
+            {/* Sorting */}
+            <div className="relative">
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value as TSort)}
+                className="min-w-50 cursor-pointer appearance-none rounded-full border border-stone-200 bg-white px-6 py-2.5 pr-12 text-sm font-medium tracking-widest text-stone-700 uppercase shadow-sm focus:ring-2 focus:ring-gold-500 focus:outline-none"
+              >
+                {['new', '-new', 'cheap', '-cheap'].map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-stone-500">
+                <svg
+                  className="h-4 w-4 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
           </motion.div>
         </div>
 
@@ -147,7 +191,7 @@ function Collection() {
           className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3"
         >
           <AnimatePresence mode="popLayout">
-            {filteredListings.map((listing) => (
+            {sortedListings.map((listing) => (
               <motion.div
                 key={listing.id}
                 layout
@@ -162,7 +206,7 @@ function Collection() {
           </AnimatePresence>
         </motion.div>
 
-        {filteredListings.length === 0 && (
+        {sortedListings.length === 0 && (
           <div className="py-20 text-center text-lg font-light text-stone-500">
             {t('notFound')}
           </div>

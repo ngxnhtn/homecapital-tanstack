@@ -19,9 +19,16 @@ export const propertyCardFragments = q
     location: sub.field('location').project(locationFragments),
     slug: sub.field('slug.current'),
     specs: sub.field('specs'),
-    propertyValue: sub.field('propertyValue'),
+    propertyValue: sub
+      .field('propertyValue')
+      .project((s) => ({
+        currency: s.field('currency').notNull(),
+        priceAmount: s.field('priceAmount').notNull(),
+      }))
+      .notNull(),
     title: sub.field('title'),
     listingStatus: sub.field('listingStatus'),
+    updatedAt: sub.field('_updatedAt').transform((s) => new Date(s).valueOf()),
   }))
 
 export const agencyQuery = q.star
