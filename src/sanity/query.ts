@@ -28,7 +28,7 @@ export const propertyCardFragments = q
       .notNull(),
     title: sub.field('title'),
     listingStatus: sub.field('listingStatus'),
-    updatedAt: sub.field('_updatedAt').transform((s) => new Date(s).valueOf()),
+    date: sub.field('date').transform((s) => new Date(s!).valueOf()),
   }))
 
 export const agencyQuery = q.star

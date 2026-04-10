@@ -189,6 +189,22 @@ const translation = {
     vi: 'Chuyên gia',
     en: 'Expert',
   },
+  new: {
+    vi: 'Bài đăng mới nhất',
+    en: 'Latest posts',
+  },
+  '-new': {
+    vi: 'Bài đăng cũ nhất',
+    en: 'Oldest posts',
+  },
+  cheap: {
+    vi: 'Giá tăng dần',
+    en: 'Price: Low to high',
+  },
+  '-cheap': {
+    vi: 'Giá giảm dần',
+    en: 'Price: High to low',
+  },
 } satisfies TranslationText
 
 export { translation }

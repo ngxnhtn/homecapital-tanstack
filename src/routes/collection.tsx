@@ -80,9 +80,9 @@ function Collection() {
   const sortedListings = useMemo(() => {
     switch (sort) {
       case 'new':
-        return filteredListings.sort((a, b) => a.updatedAt - b.updatedAt)
+        return filteredListings.sort((a, b) => b.date - a.date)
       case '-new':
-        return filteredListings.sort((a, b) => b.updatedAt - a.updatedAt)
+        return filteredListings.sort((a, b) => a.date - b.date)
       case 'cheap':
         return filteredListings.sort(
           (a, b) => a.propertyValue.priceAmount - b.propertyValue.priceAmount,
@@ -164,11 +164,11 @@ function Collection() {
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as TSort)}
-                className="min-w-50 cursor-pointer appearance-none rounded-full border border-stone-200 bg-white px-6 py-2.5 pr-12 text-sm font-medium tracking-widest text-stone-700 uppercase shadow-sm focus:ring-2 focus:ring-gold-500 focus:outline-none"
+                className="min-w-10 cursor-pointer appearance-none rounded-full border border-stone-200 bg-white px-6 py-2.5 pr-12 text-sm font-medium tracking-widest text-stone-700 uppercase shadow-sm focus:ring-2 focus:ring-gold-500 focus:outline-none"
               >
-                {['new', '-new', 'cheap', '-cheap'].map((s) => (
+                {(['new', '-new', 'cheap', '-cheap'] as const).map((s) => (
                   <option key={s} value={s}>
-                    {s}
+                    {t(s)}
                   </option>
                 ))}
               </select>

@@ -145,6 +145,7 @@ export type Property = {
   _rev: string
   title?: string
   slug?: Slug
+  date?: string
   featured?: boolean
   propertyValue?: {
     priceAmount?: number
